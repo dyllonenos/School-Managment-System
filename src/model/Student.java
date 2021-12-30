@@ -198,6 +198,9 @@ public class Student {
 				}
 			}
 			this.gpa = totalGradePoints / totalCreditHours;
+			if (totalGradePoints == 0.0 && totalCreditHours == 0.0) {
+				this.gpa = 0.0;
+			}
 		}
 	}
 }

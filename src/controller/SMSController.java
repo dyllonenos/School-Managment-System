@@ -33,4 +33,8 @@ public class SMSController {
 	public boolean setStudentGrade(String studentName, String courseName, char grade) {
 		return this.model.setStudentGrade(studentName, courseName, grade);
 	}
+	
+	public boolean addStudentCourse(String studentName, String courseName, int courseUnits) {
+		return this.model.addStudentCourse(studentName, courseName, courseUnits);
+	}
 }

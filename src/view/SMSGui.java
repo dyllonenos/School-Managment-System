@@ -55,10 +55,7 @@ public class SMSGui extends Application implements Observer {
 		Button add_course = setAddCourseButton();
 
 		VBox controls = new VBox();
-		controls.getChildren().add(add_student);
-		controls.getChildren().add(remove_student);
-		controls.getChildren().add(add_course);
-		controls.getChildren().add(update_grade);
+		controls.getChildren().addAll(add_student, remove_student, add_course, update_grade);
 		controls.setPadding(new Insets(5));
 		main_pane.setTop(welcome_text);
 		main_pane.setLeft(controls);
@@ -262,42 +259,7 @@ public class SMSGui extends Application implements Observer {
 
 		else {
 			if (action.equals("add")) {
-				Button student_button = new Button(student.getName());
-				student_button.setBackground(
-						new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-				student_button.setOnAction((event) -> {
-					Stage newWindow = new Stage();
-					BorderPane newPane = new BorderPane();
-
-					VBox student_info = new VBox();
-					student_info.getChildren().addAll(new Label("Name: " + student.getName()),
-							new Label("Age: " + student.getAge()), new Label("GPA: " + student.getGPA()),
-							new Label("SID: " + student.getID()),
-							new Label("Current Units: " + student.getCurrentUnits()));
-					newPane.setTop(student_info);
-
-					ScrollPane scroll = new ScrollPane();
-					scroll.setPadding(new Insets(5));
-
-					GridPane course_list = new GridPane();
-					scroll.setContent(course_list);
-
-					for (Map.Entry<String, Integer> entry : student.getCourseInformation().entrySet()) {
-						String course_name = entry.getKey();
-						int course_units = entry.getValue();
-						char course_grade = student.getAllGrades().get(course_name);
-						String text = "Course: " + course_name + ", Units: " + course_units + ", Grade: "
-								+ course_grade;
-						course_list.add(new Label(text), 0, course_list.getRowCount() + 1);
-					}
-
-					newPane.setCenter(scroll);
-
-					Scene newScene = new Scene(newPane, 300, 300);
-					newWindow.setTitle("Student Info");
-					newWindow.setScene(newScene);
-					newWindow.show();
-				});
+				Button student_button = setStudentButton(student);
 				this.list_pane.add(student_button, 0, row_count + 1);
 			}
 
@@ -315,6 +277,48 @@ public class SMSGui extends Application implements Observer {
 			}
 		}
 
+	}
+
+	/**
+	 * @param student
+	 * @return
+	 */
+	private Button setStudentButton(Student student) {
+		Button student_button = new Button(student.getName());
+		student_button.setBackground(
+				new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+		student_button.setOnAction((event) -> {
+			Stage newWindow = new Stage();
+			BorderPane newPane = new BorderPane();
+
+			VBox student_info = new VBox();
+			student_info.getChildren().addAll(new Label("Name: " + student.getName()),
+					new Label("Age: " + student.getAge()), new Label("GPA: " + student.getGPA()),
+					new Label("SID: " + student.getID()),
+					new Label("Current Units: " + student.getCurrentUnits()));
+			newPane.setTop(student_info);
+
+			ScrollPane scroll = new ScrollPane();
+			GridPane course_list = new GridPane();
+			scroll.setContent(course_list);
+
+			for (Map.Entry<String, Integer> entry : student.getCourseInformation().entrySet()) {
+				String course_name = entry.getKey();
+				int course_units = entry.getValue();
+				char course_grade = student.getAllGrades().get(course_name);
+				String text = "Course: " + course_name + ", Units: " + course_units + ", Grade: "
+						+ course_grade;
+				course_list.add(new Label(text), 0, course_list.getRowCount() + 1);
+			}
+
+			newPane.setCenter(scroll);
+
+			Scene newScene = new Scene(newPane, 300, 300);
+			newWindow.setTitle("Student Info");
+			newWindow.setScene(newScene);
+			newWindow.show();
+		});
+		return student_button;
 	}
 
 }

@@ -1,4 +1,5 @@
 package model;
+
 import java.util.*;
 
 public class Student {
@@ -83,9 +84,10 @@ public class Student {
 	public int getID() {
 		return this.studentID;
 	}
-	
+
 	/**
-	 * Returns the 
+	 * Returns the
+	 * 
 	 * @return
 	 */
 	public int getCurrentUnits() {
@@ -114,7 +116,8 @@ public class Student {
 	}
 
 	/**
-	 * Adds a 
+	 * Adds a
+	 * 
 	 * @param courseName
 	 * @param creditHours
 	 */

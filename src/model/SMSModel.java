@@ -24,8 +24,7 @@ public class SMSModel extends Observable {
 		boolean result;
 		if (this.list_of_students.contains(curr_student)) {
 			result = true;
-		}
-		else {
+		} else {
 			result = false;
 			this.list_of_students.add(curr_student);
 		}
@@ -49,7 +48,7 @@ public class SMSModel extends Observable {
 				return;
 			}
 		}
-		
+
 		setChanged();
 		notifyObservers(new SMSMessage("remove", null, true));
 	}
@@ -112,7 +111,7 @@ public class SMSModel extends Observable {
 	public boolean setStudentGrade(String studentName, String courseName, char grade) {
 		studentName = studentName.toLowerCase();
 		courseName = courseName.toLowerCase();
-		
+
 		for (Student currentStudent : list_of_students) {
 			// If the student exists
 			if (currentStudent.getName().equals(studentName)) {
@@ -122,8 +121,7 @@ public class SMSModel extends Observable {
 					setChanged();
 					notifyObservers(new SMSMessage("updated", currentStudent, false));
 					return true;
-				}
-				else {
+				} else {
 					// ERROR (Student is not taking this course)
 					setChanged();
 					notifyObservers(new SMSMessage("updated", currentStudent, true));
@@ -136,11 +134,11 @@ public class SMSModel extends Observable {
 		notifyObservers(new SMSMessage("updated", null, true));
 		return false;
 	}
-	
+
 	public boolean addStudentCourse(String studentName, String courseName, int courseUnits) {
 		studentName = studentName.toLowerCase();
 		courseName = courseName.toLowerCase();
-		
+
 		for (Student currentStudent : list_of_students) {
 			// If the student exists
 			if (currentStudent.getName().equals(studentName)) {

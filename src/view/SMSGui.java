@@ -313,10 +313,6 @@ public class SMSGui extends Application implements Observer {
 					}
 				}
 			}
-
-			else if (action.equals("updated")) {
-
-			}
 		}
 
 	}

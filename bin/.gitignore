@@ -1,5 +1,4 @@
-/SMSController.class
-/SMSGui.class
-/SMSModel.class
-/SMSTest.class
-/Student.class
+/model/
+/controller/
+/view/
+/test/

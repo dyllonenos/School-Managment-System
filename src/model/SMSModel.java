@@ -2,7 +2,8 @@ package model;
 
 import java.util.*;
 
-public class SMSModel {
+@SuppressWarnings("deprecation")
+public class SMSModel extends Observable {
 	ArrayList<Student> list_of_students;
 
 	/**
@@ -19,7 +20,17 @@ public class SMSModel {
 	 * @param age
 	 */
 	public void addStudent(String studentName, int age) {
-		this.list_of_students.add(new Student(studentName, age));
+		Student curr_student = new Student(studentName, age);
+		boolean result;
+		if (this.list_of_students.contains(curr_student)) {
+			result = true;
+		}
+		else {
+			result = false;
+			this.list_of_students.add(curr_student);
+		}
+		setChanged();
+		notifyObservers(new SMSMessage("add", curr_student, result));
 	}
 
 	/**
@@ -32,9 +43,14 @@ public class SMSModel {
 			String currName = currentStudent.getName();
 			if (currName.equals(studentName)) {
 				list_of_students.remove(currentStudent);
-				break;
+				setChanged();
+				notifyObservers(new SMSMessage("remove", currentStudent, false));
+				return;
 			}
 		}
+		
+		setChanged();
+		notifyObservers(new SMSMessage("remove", null, true));
 	}
 
 	/**
@@ -95,10 +111,14 @@ public class SMSModel {
 			if (currentStudent.getName().equals(studentName)) {
 				if (currentStudent.getCourseInformation().containsKey(courseName)) {
 					currentStudent.setCourseGrade(courseName, grade);
+					setChanged();
+					notifyObservers(new SMSMessage("updated", currentStudent, false));
 				}
 				return true;
 			}
 		}
+		setChanged();
+		notifyObservers(new SMSMessage("updated", null, true));
 		return false;
 	}
 }

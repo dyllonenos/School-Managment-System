@@ -1,5 +1,8 @@
+package controller;
 
 import java.util.*;
+
+import model.SMSModel;
 
 public class SMSController {
 	private SMSModel model;
